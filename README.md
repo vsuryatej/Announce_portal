@@ -2,7 +2,7 @@
 
 A full-stack portal where **authors** publish organization-wide announcements and **readers** browse, filter, and acknowledge them. The system tracks per-user read state and explicit acknowledgments, with author-only analytics on engagement.
 
-## Quick start (< 10 minutes)
+## Quick setup steps
 
 ### Prerequisites
 
@@ -15,12 +15,7 @@ A full-stack portal where **authors** publish organization-wide announcements an
 npm run install:all
 ```
 
-Or manually:
 
-```bash
-cd server && npm install
-cd ../client && npm install
-```
 
 ### 2. Database setup
 
@@ -184,15 +179,13 @@ my_project/
 
 | Method | Path | Description |
 |--------|------|-------------|
-| POST | `/api/auth/register` | Register (public) |
-| POST | `/api/auth/login` | Login (public) |
-| GET | `/api/auth/me` | Current user |
+| POST | `http://localhost:5000/api/auth/register` | Register (public) |
+| POST | `http://localhost:5000/api/auth/register` | Login (public) |
 | GET | `/api/announcements` | Paginated list + filters |
 | GET | `/api/announcements/mine/drafts` | Author drafts |
 | POST | `/api/announcements` | Create draft (author) |
 | GET | `/api/announcements/:id` | Detail + record read |
 | PUT | `/api/announcements/:id` | Edit draft (author) |
-| DELETE | `/api/announcements/:id` | Delete draft (author) |
 | PATCH | `/api/announcements/:id/publish` | Publish draft |
 | PATCH | `/api/announcements/:id/archive` | Archive published |
 | POST | `/api/announcements/:id/acknowledge` | Acknowledge |
