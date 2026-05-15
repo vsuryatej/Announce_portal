@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  READER
+  AUTHOR
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum Category {
+  COMPANY
+  HR
+  ENGINEERING
+  IT
+  OPERATIONS
+  EVENTS
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  password      String
+  role          Role      @default(READER)
+  announcements Announcement[]
+  reads         Read[]
+  acknowledgments Acknowledgment[]
+  createdAt     DateTime @default(now())
+}
+
+model Announcement {
+  id          Int      @id @default(autoincrement())
+  title       String
+  body        String
+  category    Category
+  pinned      Boolean  @default(false)
+  requiresAck Boolean  @default(false)
+  status      Status   @default(DRAFT)
+
+  authorId    Int
+  author      User @relation(fields: [authorId], references: [id])
+
+  reads       Read[]
+  acknowledgments Acknowledgment[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
+}
+
+model Read {
+  id Int @id @default(autoincrement())
+
+  userId Int
+  announcementId Int
+
+  user User @relation(fields: [userId], references: [id])
+  announcement Announcement @relation(fields: [announcementId], references: [id])
+
+  readAt DateTime @default(now())
+
+  @@unique([userId, announcementId])
+}
+
+model Acknowledgment {
+  id Int @id @default(autoincrement())
+
+  userId Int
+  announcementId Int
+
+  user User @relation(fields: [userId], references: [id])
+  announcement Announcement @relation(fields: [announcementId], references: [id])
+
+  acknowledgedAt DateTime @default(now())
+
+  @@unique([userId, announcementId])
+}
