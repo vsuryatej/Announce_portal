@@ -136,10 +136,31 @@ my_project/
 
 ## How AI tools were used
 
-- **Cursor (Claude)** was used to scaffold the Prisma schema, Express routes, and React pages from the assignment specification.
-- AI-generated code was reviewed for: draft visibility rules, immutability after publish, idempotent acknowledgments, and author-only analytics.
-- Hand-edited areas: seed credentials, README, proxy config, and UX copy.
-- Surprising fix: SQLite lacks Prisma `insensitive` mode — title search uses a small raw SQL fragment for case-insensitive matching.
+ChatGPT and Claude was used to assist in designing the full-stack architecture, generating backend API structures, Prisma schemas, authentication flows, and React frontend components based on the assignment requirements.
+
+AI-assisted code generation was carefully reviewed and customized for:
+
+role-based access control (AUTHOR / READER),
+secure JWT authentication,
+announcement lifecycle management (draft, publish, archive),
+read tracking,
+idempotent acknowledgment handling,
+analytics generation,
+filtering, sorting, and pagination logic.
+
+Hand-edited and customized areas included:
+
+frontend UI styling using Tailwind CSS glassmorphism design,
+dashboard interactions,
+API integration with Axios,
+protected routes,
+Prisma migrations,
+debugging runtime issues,
+role handling workflows,
+project structure organization,
+README/documentation updates.
+
+A notable implementation challenge involved handling advanced filtering and frontend-backend synchronization during search and pagination workflows, which required refining Prisma query conditions and React state management for stable real-time updates.
 
 ---
 
